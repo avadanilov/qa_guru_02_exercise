@@ -19,10 +19,10 @@ public class PracticeFormTests {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         $("input#firstName").val("FirstName");
-        $("input#lastName").setValue("LastName");
-        $("input#userEmail").setValue("qqq@www.eee");
+        $("input#lastName").val("LastName");
+        $("input#userEmail").val("qqq@www.eee");
         $("[name=gender][value=Male]").parent().click();
-        $("input#userNumber").setValue("1798765432");
+        $("input#userNumber").val("1798765432");
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("July");
         $(".react-datepicker__year-select").selectOption("2005");
