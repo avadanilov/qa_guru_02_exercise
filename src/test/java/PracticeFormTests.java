@@ -1,68 +1,40 @@
 import com.codeborne.selenide.Configuration;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selectors.byValue;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTests {
-    String date = "28";
+
     @BeforeAll
     static void beforeAll() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.startMaximized = true;
-        Configuration.browser="FireFox";
-
-    }
-
-    @AfterEach
-    void tearDown() {
-        close();
-    }
+     }
 
     @Test
     void positiveFillTest() {
+        String date = "28";
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         $("input#firstName").val("FirstName");
         $("input#lastName").setValue("LastName");
         $("input#userEmail").setValue("qqq@www.eee");
-
         $("[name=gender][value=Male]").parent().click();
-/*
-        $("input#gender-radio-1").parent().click();
-        $(byValue("Male")).parent().click();
-        $(byText("Male")).click(); //gender
-        $("#gender#wrapper").$(byText("Male"));
-
- */
         $("input#userNumber").setValue("1798765432");
-
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("July");
         $(".react-datepicker__year-select").selectOption("2005");
         $(".react-datepicker__day--0" + date + ":not(.react-datepicker__day--outside-month").click();
-/*
-        $$(".react-datepicker__day react-datepicker__day--0" + date)
-                .filter(not(cssClass(".react-datepicker__day--outside-month"))).first().click();
-        $("[aria-label='Choose Thurseday, July 28th, 2005']").click();
-        $x("//*[contains(@aria-label,'July 28th, 2005')]").click();
- */
         $("#subjectsInput").val("maths").pressEnter();
         $("#hobbiesWrapper").$(byText("Reading")).click();
-
-//        $("uploadPicture").uploadFromClasspath("./img/1.png");
+        $("#uploadPicture").uploadFromClasspath("./img/1.png");
         $("#currentAddress").val("Some Address, dom 1, kv 7");
         $("#state").click();
         $("#stateCity-wrapper").$(byText("NCR")).click();
         $("#city").click();
         $("#stateCity-wrapper").$(byText("Delhi")).click();
-
         $("#submit").click();
 
         $(".modal-title").shouldHave(text("Thanks for submitting the form"));
@@ -74,15 +46,8 @@ public class PracticeFormTests {
         $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("28 July,2005"));
         $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("Maths"));
         $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Reading"));
-        //$(".table-responsive").$(byText("Picture")).parent().shouldHave(text("Reading"));
+        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("1.png"));
         $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Some Address, dom 1, kv 7"));
         $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Delhi"));
-
-
-
-
-
-
-
-    }
+   }
 }
